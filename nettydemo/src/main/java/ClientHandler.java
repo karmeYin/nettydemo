@@ -16,6 +16,10 @@ public class ClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
     }
     @Override
     public void channelRead0(ChannelHandlerContext ctx, ByteBuf in) throws  Exception{
+        for(int x=0;x<in.capacity();x++){
+            System.out.println("char:"+(char)in.getByte(x));
+            in.readerIndex();
+        }
         System.out.println("Client received: " + ByteBufUtil.hexDump(in.readBytes(in.readableBytes())));
     }
     @Override
