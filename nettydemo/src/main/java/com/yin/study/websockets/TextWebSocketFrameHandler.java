@@ -14,13 +14,11 @@ public class TextWebSocketFrameHandler extends
         this.group = group;
     }
     @Override
-    public void userEventTriggered(ChannelHandlerContext ctx,
-                                   Object evt) throws Exception {
-        if (evt == WebSocketServerProtocolHandler
-                .ServerHandshakeStateEvent.HANDSHAKE_COMPLETE) {
+    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+        if (evt == WebSocketServerProtocolHandler.ServerHandshakeStateEvent.HANDSHAKE_COMPLETE) {
+            System.out.println("userEventTriggered");
             ctx.pipeline().remove(HttpRequestHandler.class);
-            group.writeAndFlush(new TextWebSocketFrame("Client " +
-                    ctx.channel() + " joined"));
+            group.writeAndFlush(new TextWebSocketFrame("Client " + ctx.channel() + " joined"));
             group.add(ctx.channel());
         } else {
             super.userEventTriggered(ctx, evt);

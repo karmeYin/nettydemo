@@ -16,19 +16,22 @@ public class HttpRequestHandler
     @Override
     public void channelRead0(ChannelHandlerContext ctx, FullHttpRequest
             request) throws Exception {
-        if (wsUri.equalsIgnoreCase(request.getUri())) {
+        System.out.println(wsUri+"object");
+        System.out.println(request.uri()+"target");
+        if (wsUri.equalsIgnoreCase(request.uri())) {
             ctx.fireChannelRead(request.retain());
+            System.out.println("进来了");
         } else {
             if (HttpHeaders.is100ContinueExpected(request)) {
                 send100Continue(ctx);
             }
             RandomAccessFile file = new
-                    RandomAccessFile("/path/to/index.html", "r");
+                    RandomAccessFile(System.getProperty("user.dir")+ "/src/main/webapp/index.html", "r");//System.getProperty("user.dir") + "/index.html", "r"
             HttpResponse response = new DefaultHttpResponse(
                     request.getProtocolVersion(), HttpResponseStatus.OK);
             response.headers().set(
                     HttpHeaders.Names.CONTENT_TYPE,
-                    "text/plain; charset=UTF-8");
+                    "text/html; charset=UTF-8");
             boolean keepAlive = HttpHeaders.isKeepAlive(request);
             if (keepAlive) {
                 response.headers().set(
