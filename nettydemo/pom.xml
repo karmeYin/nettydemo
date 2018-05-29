@@ -13,5 +13,10 @@
         <artifactId>netty-all</artifactId>
         <version>4.1.5.Final</version>
     </dependency>
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-api</artifactId>
+        <version>RELEASE</version>
+    </dependency>
 </dependencies>
 </project>
